@@ -1,0 +1,23 @@
+.inf{
+    color: white;
+    
+  }
+  .ins{
+    background-color:white;
+    
+  }
+   .inscr{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 30px;
+        }
+h1{
+    text-align: center;
+    
+}
+.bnt{
+    display: flex;
+    justify-content: space-between;
+}
