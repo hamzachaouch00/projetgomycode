@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
@@ -7,19 +7,13 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 
 import AddCar from './Car/AddCar';
-import Resevationlist from './Reservation/Resevationlist';
+
+import { Link } from 'react-router-dom';
 
 const Navigation = ({setSearch}) => {
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
-  const adminshow =(e)=>{
-    
-    if (e.role==='admin'){
-      
-      handleShow()
-    }
-    
-  }
+  
+ 
+
   return (
     <div> 
     <Navbar bg="light" expand="lg">
@@ -36,23 +30,19 @@ const Navigation = ({setSearch}) => {
           
          
           <NavDropdown title="Link" id="navbarScrollingDropdown">
-            <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+          <Link to='/userProfil'>
+            <NavDropdown.Item href="#action3">Profil</NavDropdown.Item>
+            </Link>
+            <Link to='/listereservation'>
             <NavDropdown.Item href="#action4">
-              Another action
+             liste resrvation 
             </NavDropdown.Item>
+            </Link>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="#action5">
-              Something else here
-            </NavDropdown.Item>
+            
           </NavDropdown>
-          <AddCar 
-            show={show}
-            adminshow={adminshow}
-          />
-          <Resevationlist 
-             show={show}
-             handleShow={handleShow}
-          />
+          <AddCar />
+          
         </Nav>
         <Form className="d-flex">
           <Form.Control

@@ -21,6 +21,7 @@ const Logn = () => {
       }).then((response)=>{
         console.log(response)
         if(response){
+          localStorage.setItem("token",response.data.token)
           navigate("/car")
         }
           

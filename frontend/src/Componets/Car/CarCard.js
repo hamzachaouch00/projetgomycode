@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Delete_car, Edit_car } from '../../Redux/Action/CarAction';
-import { Link } from 'react-router-dom';
+
 import AddReservation from '../Reservation/AddReservation';
+import { Get_user, get_one_user } from '../../Redux/Action/UserAction';
 
 const CarCard = ({el}) => {
   const dispatch=useDispatch()
@@ -17,6 +18,12 @@ const CarCard = ({el}) => {
   const[image,setImage]=useState(el?.image)
   const[attribut,setAttribut]=useState(el?.attribut)
   const[price,setPrice]=useState(el?.price)
+  useEffect(()=>{
+    var token =localStorage.getItem("token")
+    dispatch(Get_user())
+    dispatch(get_one_user(token))
+  })
+  const role= useSelector((state)=>state.UserReducer.oneuser)
   const handleEdit=()=>{
     dispatch(Edit_car(el._id,{model,image,attribut,price}),handleClose(),window.location.reload())
   }
@@ -35,12 +42,13 @@ const CarCard = ({el}) => {
         
       </Card.Body>
       <Card.Footer>
-      <Button variant="danger" onClick={()=>dispatch(Delete_car(el._id),window.location.reload())}>Delete</Button>
-      <Button variant="warning"  onClick={handleShow}>
+      {role.role==='admin'? <Button variant="danger" onClick={()=>dispatch(Delete_car(el._id),window.location.reload())}>Delete</Button>:null}
+      {role.role==='admin'? <Button variant="warning"  onClick={handleShow}>
        Edit
-    </Button>
-   
+    </Button>:null}
+    {/* apple Componet add reservations */}
     <AddReservation
+    carId={el._id}
       show={show}
       handleClose={handleClose}
     />

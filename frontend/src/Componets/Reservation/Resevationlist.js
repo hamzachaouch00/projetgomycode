@@ -7,10 +7,10 @@ const Resevationlist = () => {
     useEffect(() => {
     dispatch(Get_Resrv())
     }, [dispatch])
-    const reservations=useSelector(state=>state.ReservReducer.reservations)
+    const reservations=useSelector(state=>state.ReservReducer.reserv)
   return (
     <div>
-    <button>Liste Reservation</button>
+    <h1>Liste Of Reservation</h1>
      {reservations?.map((el)=><ReservationCard key={el._id} el={el}/>)}
 
     </div>

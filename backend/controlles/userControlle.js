@@ -99,9 +99,9 @@ const jwt=require("jsonwebtoken")
       };
       
       exports.Getone=async(req,res)=>{
-          const {name}=req.body
+          const {_id}=req.body
           try {
-              const user= await userSchema.find({name})
+              const user= await userSchema.find({_id})
               res.status(200).send({msg:"filter",user})
           } catch (error) {
               res.status(500).send(error);

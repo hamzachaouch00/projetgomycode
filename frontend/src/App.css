@@ -21,3 +21,10 @@ h1{
     display: flex;
     justify-content: space-between;
 }
+.userprof{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}

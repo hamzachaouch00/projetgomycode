@@ -1,29 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Add_car } from '../../Redux/Action/CarAction';
+import { Get_user, get_one_user } from '../../Redux/Action/UserAction';
+
 
 const AddCar = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    
     const dispatch=useDispatch()
     const[model,setModel]=useState("")
     const[image,setImage]=useState("")
     const[attribut,setAttribut]=useState("")
     const[price,setPrice]=useState("")
+    useEffect(()=>{
+      var token =localStorage.getItem("token")
+      dispatch(Get_user())
+      dispatch(get_one_user(token))
+    })
+    const role= useSelector((state)=>state.UserReducer.oneuser)
     const handleAdd=()=>{
         dispatch(Add_car({model,image,attribut,price}),handleClose())
     }
   return (
     <div>
-    <Button variant="primary" style={{borderRadius:"50%"}} onClick={handleShow}>
-        +
-    </Button>
+   {role.role==='admin'? <Button variant="primary"  onClick={handleShow}>
+        Add Car
+    </Button>:null}
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
