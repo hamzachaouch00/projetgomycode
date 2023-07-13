@@ -88,6 +88,7 @@ const jwt=require("jsonwebtoken")
         }
       };
       exports.Edituser = async (req, res) => {
+        console.log(req.body)
         try {
           const user = await userSchema.findByIdAndUpdate(req.params.id, {
             $set: req.body,

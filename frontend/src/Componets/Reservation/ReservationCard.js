@@ -18,7 +18,7 @@ const ReservationCard = ({el}) => {
   const[user,setUser]=useState(el?.user)
   const[pricetotal,setPricetotal]=useState(el?.pricetotal)
   const handleEdit=()=>{
-    dispatch(Edit_resrv(el._id,{car,datedebut,datefin,pricetotal}),handleClose(),window.location.reload())
+    dispatch(Edit_resrv(el._id,{car,datedebut,datefin,pricetotal}),handleClose())
   }
   return (
     <div>

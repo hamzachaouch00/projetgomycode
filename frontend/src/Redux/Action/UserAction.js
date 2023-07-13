@@ -27,7 +27,8 @@ export const Delete_user=(id)=>async(dispatch)=>{
 }
 export const Edit_user=(id,data)=>async(dispatch)=>{
     try {
-        await axios.put("user/update/"+id,data)
+        const res=await axios.put("user/edit/"+id,data)
+        console.log(res)
         dispatch(Get_user())
     } catch (error) {
         console.log(error) 
