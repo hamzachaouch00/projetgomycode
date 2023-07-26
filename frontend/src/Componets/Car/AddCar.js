@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Add_car } from '../../Redux/Action/CarAction';
 import { Get_user, get_one_user } from '../../Redux/Action/UserAction';
+import axios from 'axios';
 
 
 const AddCar = () => {
@@ -15,17 +16,34 @@ const AddCar = () => {
     
     const dispatch=useDispatch()
     const[model,setModel]=useState("")
-    const[image,setImage]=useState("")
+    const[image,setImage]=useState([])
     const[attribut,setAttribut]=useState("")
     const[price,setPrice]=useState("")
+    
     useEffect(()=>{
       var token =localStorage.getItem("token")
       dispatch(Get_user())
       dispatch(get_one_user(token))
-    })
+    },[dispatch])
     const role= useSelector((state)=>state.UserReducer.oneuser)
-    const handleAdd=()=>{
-        dispatch(Add_car({model,image,attribut,price}),handleClose())
+    const handleAdd=async()=>{
+      const formData= new FormData()
+      formData.append('file',image)
+      formData.append('upload_preset','ml_default')
+      await axios.post('http://api.cloudinary.com/v1_1/dvut377jf/upload',formData)
+      .then((res)=>{
+          // dispatch (post_prodact({subject:subject,image:res.data.url,name:name}))
+          dispatch(Add_car({model,image:res.data.url,attribut,price}),handleClose())
+      })
+
+
+
+
+
+
+
+     
+        // dispatch(Add_car({model,image,attribut,price}),handleClose())
     }
   return (
     <div>
@@ -40,7 +58,7 @@ const AddCar = () => {
         <Modal.Body>
         <Form.Group className="mb-3" controlId="formBasic">
         <Form.Label>Image</Form.Label>
-        <Form.Control type="text" placeholder="Enter image" onChange={(e)=>setImage(e.target.value)} />
+        <Form.Control type="file" placeholder="Enter image" onChange={(e)=>setImage(e.target.files[0])} />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Model</Form.Label>

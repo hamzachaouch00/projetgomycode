@@ -22,7 +22,7 @@ const CarCard = ({el}) => {
     var token =localStorage.getItem("token")
     dispatch(Get_user())
     dispatch(get_one_user(token))
-  })
+  },[dispatch])
   const role= useSelector((state)=>state.UserReducer.oneuser)
   const handleEdit=()=>{
     dispatch(Edit_car(el._id,{model,image,attribut,price}),handleClose(),window.location.reload())

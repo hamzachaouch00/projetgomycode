@@ -12,8 +12,9 @@ function Regstr({show,handleClose}) {
   const [password,setPassword]=useState('')
   const [phone,setPhone]=useState('')
   const [numpermis,setNumpermis]=useState('')
-  const [image,setImage]=useState('')
+  const [image,setImage]=useState([])
   const navigate=useNavigate()
+  
   const handleRegister=()=>{
     axios.post('user/register',{
       name:name,
@@ -115,7 +116,7 @@ function Regstr({show,handleClose}) {
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label >Image</Form.Label>
-        <Form.Control type="text" placeholder="Image" onChange={(e)=>setImage(e.target.value)}/>
+        <Form.Control type="text" placeholder="Image" onChange={(e)=>setImage(e.target.files[0])}/>
       </Form.Group>
      
       
